@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>countdown</title>
+	<script>
+	function countDown(target){
+		var currentTime=new Date();
+		var v=Math.abs(target-currentTime);
+		return{
+			d:parseInt(v/(24*3600000)),
+			h:parseInt(v%(24*3600000)/3600000),
+			m:parseInt(v%(24*3600000)%3600000/60000),
+			s:parseInt(v%(24*3600000)%3600000%60000/1000)
+		};
+	}
+	window.onload=function(){
+		var d1=document.getElementById('d1');
+		var d2=document.getElementById('d2');
+		var target1=new Date(2016,11,22);
+		//var target2=new Date(2008,7,8);
+
+		setInterval(function(){
+
+			d1.innerHTML="Ending of this semester coming soon in "+countDown(target1).d+"Days "+countDown(target1).h+"Hours "+countDown(target1).m+"Minutes "+countDown(target1).s+"Seconds";
+
+		},1000)
+
+
+		
+	}
+	
+	</script>
+</head>
+<body>
+	<div id="d1"></div>
+	<div id="d2"></div>
+</body>
+</html>

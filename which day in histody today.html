@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>whichdayinhistorytoday</title>
+	<style>
+		span{
+			font-size:20px;
+			font-family: sans-serif;
+			color:#f00;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var year=document.getElementById('year');
+			var month=document.getElementById('month');
+			var day=document.getElementById('day');
+			var week=document.querySelector('span');
+			var d=new Date();
+			var oldD=new Date();
+			
+
+			//添加年数进select列表
+			for(var i=2030;i>=1970;i--){
+				year.innerHTML+="<option>"+i+"</option>";
+				year.value=d.getFullYear();
+
+			}
+			//添加月份进select列表
+			for(var i=12;i>=1;i--){
+				month.innerHTML+="<option>"+i+"</option>";
+				month.value=d.getMonth()+1;
+			}
+			//添加天数进列表，但是天数要由年数和月数得出 seto求出上一个月的最后一天， 所以设定函数
+			
+			culDay();
+			function culDay(){
+				d.setFullYear(year.value);
+				d.setMonth(month.value);
+				d.setDate(0);
+
+				//此处console.log（d）结果为Sun May 31 2009 02:25:56 GMT-0400 (EDT) 所以从中取出天数31
+				var totalDay=d.getDate();
+				var dayStr='';
+				for(var i=1;i<=totalDay;i++){
+					dayStr+="<option>"+i+"</option>";
+				}
+				day.innerHTML=dayStr;
+				day.value=oldD.getDate();
+				d.setDate(day.value);
+				var weekday=formatweek(d.getDay());
+				console.log(weekday);
+
+				
+				week.innerHTML=weekday;
+
+
+				
+			}
+			year.onchange=function(){
+				culDay();
+			}
+			month.onchange=function(){
+				culDay();
+			}
+			day.onchange=function(){
+				d.setFullYear(year.value);
+				//console.log(d);
+				d.setMonth(month.value-1);
+				d.setDate(this.value);
+
+				week.innerHTML=formatweek(d.getDay());
+				console.log(d);
+			}
+			function formatweek(v){
+				return ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][v];
+			}
+
+			
+		}
+
+
+		
+	</script>
+</head>
+<body>
+	Year<select id="year"></select>
+	Month<select id="month"></select>
+	Day<select id="day"></select>
+	Is <span></span>
+
+
+</body>
+</html>

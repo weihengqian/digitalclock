@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>which week</title>
+</head>
+<script>
+	window.onload=function(){
+		/*今天是今年的第几周
+		用现在得日期减7 一直减到去年
+		*/
+
+		var d=new Date();
+		var n=0;
+		var firstDay=new Date(2016,0,1).getDay();
+		var currentDay=d.getDay();
+		console.log(firstDay);
+		console.log(currentDay);
+
+
+		while(d.getFullYear()!=2015){
+			n++;
+			
+			d.setDate(d.getDate()-7);
+		}
+		if(currentDay<firstDay){
+			n+=1;
+
+		}
+		console.log(n);
+	}
+</script>
+<body>
+
+</body>
+</html>

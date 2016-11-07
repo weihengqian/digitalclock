@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>digitalclock</title>
+	<script>
+		window.onload=function(){
+			
+			var clock=document.getElementById("clockbox");
+
+			setInterval(function(){
+				var d1=new Date();
+				clock.innerHTML=''+formatWeek(d1.getDay())+
+								' '+formatMonth(d1.getMonth())+
+								' '+(d1.getDate()+'th')+
+								','+d1.getFullYear()+
+								' '+format(d1.getHours())+
+								':'+format(d1.getMinutes())+
+								':'+format(d1.getSeconds())+'';
+			},1000)
+			
+		}
+
+		function format(v){
+			return v<10?'0'+v:''+v;
+			
+		}
+		function formatWeek(v){
+			var weekList=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+			return weekList[v];
+		}
+		function formatMonth(v){
+			var formatMonth=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
+			return formatMonth[v];
+		}
+
+	</script>
+</head>
+<body>
+	<div id="clockbox"></div>
+</body>
+</html>

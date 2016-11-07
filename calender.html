@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>calendar</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		#desk{
+			width:420px;
+			margin:60px auto;
+		}
+		
+		li{
+			width:60px;
+			height:60px;
+			float:left;
+			list-style:none;
+			text-align:center;
+			line-height:60px;
+			font-size:18px;
+			font-weight:bold;
+		}
+		div span{
+			float:left;
+			width:60px;
+			height:60px;
+			text-align:center;
+			line-height:60px;
+		}
+		div span.active{
+			background:#f00;
+			color:#fff;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var divs=document.querySelector('#desk div');
+			var d=new Date();
+
+			/*当前月份多少天
+			  上个月份多少天
+			  当前月份第一天是周几
+			*/
+			//当前月份多少天
+			function getCurrectDays(year,month){
+				//下一个月的第0天就是这个月的天数
+				return new Date(year,month,0).getDate();
+
+			}
+			//当前月份第一天是周几
+			function getCurrectWeek(year,month){
+				return new Date(year,month-1,1).getDay();
+			}
+
+			//上个月的最后一天
+			var lastEndDay=getCurrectDays(d.getFullYear(),d.getMonth());
+
+			//本月最后一天
+			var totalDays=getCurrectDays(d.getFullYear(),d.getMonth()+1);
+			//这个月的第一天是星期几
+			var week=getCurrectWeek(d.getFullYear(),d.getMonth()+1);
+			var nextDay=1;
+			var dayStr='';
+
+			week=week==0?7:week;
+			for(var i=0;i<42;i++){
+				if(i<week){
+					//上个月日期
+					dayStr="<span style='color:#ccc'>"+(lastEndDay--)+"</span>"+dayStr;
+				}else if(i>=week+totalDays){
+					//下个月日期
+					dayStr+="<span style='color:#ccc'>"+(nextDay++)+"</span>";
+				}else{
+					//本月日期
+					var cl=(i-week+1)==d.getDate()?'active':'';
+					dayStr+="<span class='"+cl+"'>"+(i-week+1)+"</span>";
+				}
+			}
+			/*for(var i=0;i<week;i++){
+				dayStr+='<span></span>';
+			}
+
+			//生成日期
+			
+			for(var i=1;i<=totalDays;i++){
+				
+				if(i==d.getDate()){
+					dayStr+='<span class="active">'+i+'</span>';
+
+				}else{
+					dayStr+='<span>'+i+'</span>';
+
+				}
+				
+				console.log(divs);
+			}
+			*/
+			divs.innerHTML=dayStr;
+			//console.log(getCurrectDays(2016,12),getCurrectWeek(2016,12));
+		}
+	</script>
+
+</head>
+<body>
+	<div id="desk">
+		<ul>
+			<li>Sun</li>
+			<li>Mon</li>
+			<li>Tue</li>
+			<li>Wed</li>
+			<li>Thu</li>
+			<li>Fri</li>
+			<li>Sat</li>
+
+		</ul>
+		<div>
+		</div>
+	</div>
+
+</body>
+</html>
